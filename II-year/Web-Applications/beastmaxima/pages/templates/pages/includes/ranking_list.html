@@ -1,0 +1,17 @@
+{% if global_leaderboard %}
+  {% for session in global_leaderboard %}
+      <li class="ranking-item">
+        <div class="ranking-rank">{{ forloop.counter }}</div>
+          <div class="ranking-details">
+            <a href="/accounts/profile/{{session.user.username}}/" class="player-link">{{ session.user.username }}</a>
+            <span class="puzzle-specs">
+              {{ session.puzzle.size }}x{{ session.puzzle.size }} |
+              {{ session.puzzle.difficulty|title }}</span>
+          </div>
+        <div class="ranking-time">{{ session.formatted_time_taken }}</div>
+      </li>
+  {% endfor %}
+{% else %}
+  <li class="ranking-item">No completed games yet.
+  Be the first to conquer the jungle!</li>
+{% endif %}

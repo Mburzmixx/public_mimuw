@@ -1,0 +1,19 @@
+{
+  "name": "beastmaxima",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "npm run check && esbuild game/static/game/ts/main.ts --bundle --outfile=game/static/game/js/main.js --sourcemap",
+    "watch": "esbuild game/static/game/ts/main.ts --bundle --outfile=game/static/game/js/main.js --sourcemap --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3"
+  }
+}

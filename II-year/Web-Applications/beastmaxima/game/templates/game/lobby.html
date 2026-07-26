@@ -1,0 +1,31 @@
+{% extends "pages/base.html" %}
+{% block title %}Game Lobby{% endblock %}
+
+{% block content %}
+<div class ="lobby-container">
+  <h2>Choose your territory</h2>
+
+  <p>Select the size of the territory for your beasts.</p>
+  <form method="POST" action="{% url 'game_lobby' %}" class="lobby-form">
+    {% csrf_token %}
+
+    <div class="size-selection">
+      <label for="size">Available sizes:</label>
+      <select name="size" id="size" required class="size-dropdown">
+        {% if available_sizes %}
+          {% for size in available_sizes %}
+            <option value="{{ size }}">{{ size }} x {{ size }}</option>
+          {% endfor %}
+        {% else %}
+          <option value="" disabled>No puzzles available.</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg" {% if not available_sizes %}disabled{% endif %}>
+        Enter the Jungle
+      </button>
+  </form>
+</div>
+
+{% endblock %}
