@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Beast Maxima{% endblock %} — Beast Maxima</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'pages/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header>
+    <nav class="main-nav">
+      <div class="nav-container">
+        
+        <div class="nav-links nav-left">
+          <a href="{% url 'home' %}" class="nav-item page-link">Home</a>
+          <a href="{% url 'game_lobby' %}" class="nav-item page-link">Game Lobby</a>
+        </div>
+
+        <a href="{% url 'home' %}" class="nav-logo">BEAST MAXIMA</a>
+
+        <div class="nav-links nav-right">
+          {% load socialaccount %}
+          {% if user.is_authenticated %}
+            <span>Hello, <strong>{{ user.username }}</strong></span>
+            <a href="{% url 'profile' %} " class="nav-item auth-link">Profile</a>
+            <form method="POST" action="{% url 'account_logout' %}" class="logout-form">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout">Logout</button>
+            </form>
+          {% else %}
+            <a href="{% url 'account_login' %}" class="nav-item auth-link">Login</a>
+            <a href="{% url 'account_signup' %}" class="nav-item auth-link">Register</a>
+
+            <div class="providers-container">
+              <a href="{% provider_login_url 'github' %}" class="btn-provider btn-github">
+                <i class="fab fa-github"></i> Login with GitHub</a>  
+
+              <a href="{% provider_login_url 'google' %}" class="btn-provider btn-google">
+                <i class="fab fa-google"></i> Login with Google</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-layout">
+    <aside class="ranking-sidebar">
+      <h3 class="ranking-header">Best Global Times</h3>
+      <ul class="ranking-list" id="ranking-container">
+        {% include "pages/includes/ranking_list.html" %}
+      </ul>
+
+      <div id="ranking-size-sidebar" class="hidden">
+        <div class="ranking-size-header">
+          <h3 class="ranking-header" id="ranking-header-size"></h3>
+        </div>
+        <ul class="ranking-list" id="ranking-size-container">
+        </ul>
+      </div>
+    </aside>
+    
+    <main class="content-area">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p class="footer-text">{% block footer_text %}© 2026 Beast Maxima, Mateusz Burza{% endblock %}</p>
+      <div class="footer-status">
+        <span class="status-indicator"></span>Server online
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

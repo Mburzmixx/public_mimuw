@@ -1,0 +1,44 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}Game{% endblock %}
+
+{% block content %}
+  <div class="text-game">
+    <h2 class="h2-game">Place your beasts:</h2>
+  </div>
+
+  <main id="game-arena">
+    <div id="game-board-container">
+      <div id="board" class="board" data-size='{{ size }}' data-session-id='{{ session_id }}' data-initial='{{ initial_board|safe }}'></div>
+    </div>
+
+    <aside class="game-controls">
+      <div class="timer-box">
+        <span class="timer-label">Time elapsed:</span>
+        <span id="game-timer" class="timer-value">00:00</span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-primary btn-lg" id="check-board-btn">
+          Submit!
+        </button>
+        <button class="btn btn-primary btn-sm" id="reset-board-btn">
+          Reset
+        </button>
+        <a href="/lobby/" class="btn btn-primary btn-sm">
+          New Game
+        </a>
+      </div>
+    </aside>
+  </main>
+
+  <div id="game-message" class="game-message-overlay hidden">
+    <div class="game-message-content">
+      <h2 id="game-message-title"></h2>
+      <p id="game-message-body"></p>
+      <button class="btn btn-primary btn-lg" id="game-message-close-btn">Close</button>
+    </div>
+  </div>
+
+  <script src="{% static 'game/js/main.js' %}"></script>
+{% endblock %}
